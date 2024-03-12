@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DataBase.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: novsiann <novsiann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:19:53 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/10 14:51:47 by novsiann         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:16:46 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	DataBase::pushInBase(std::string env_name)
 
 void	DataBase::eraseLastSection()
 {
-    // if(!this->_variablePath.empty())
+    if(!this->_variablePath.empty()) // Probably we don't need that condition
         this->_variablePath.pop_back();
 }
 
@@ -60,4 +60,42 @@ std::string DataBase::getKeyWithoutLastSection()
 	for(it = tmp.begin(); it != tmp.end(); it++)
         finalKey += *it + ".";
 	return finalKey;
+}
+
+std::string DataBase::readFile(char **argv)
+{
+    std::string configData;
+    std::string lastLine;
+    std::string line;
+    std::string configFile = argv[1];
+    std::ifstream file(configFile.c_str());
+
+    if (!file) 
+        ft_errors(configFile,2);
+
+    while (std::getline(file, line)) {
+        std::size_t commentPos = line.find('#');
+        if (commentPos != std::string::npos) {
+            line = line.substr(0, commentPos);
+        }
+        line.erase(0, line.find_first_not_of(" \t\n\r\f\v")); // Trim leading whitespace
+        line.erase(line.find_last_not_of(" \t\n\r\f\v") + 1); // Trim trailing whitespace
+
+        // If the line ends with a space, concatenate with the next line
+        if (!line.empty() && line[line.size() - 1] == ' ') {
+            lastLine += line.substr(0, line.size() - 1) + " ";
+        } else {
+            if (!lastLine.empty()) {
+                lastLine += line;
+                configData += lastLine + "\n";
+                lastLine.clear();
+            } else {
+                configData += line + "\n";
+            }
+        }
+    }
+    if (!lastLine.empty()) {
+        configData += lastLine;
+    }
+    return configData;
 }
