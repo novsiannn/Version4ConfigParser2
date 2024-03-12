@@ -6,7 +6,7 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:10:42 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/12 21:29:48 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/12 22:40:46 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,14 @@ int main(int argc, char *argv[]) {
     std::string configData;
     configData = base.execParser(argv);
 
-    std::map<std::string, int> sectionCounts; // Map to store section counts
-
-    // Append the last line if it's not empty
+    std::map<std::string, int> sectionCounts;
 
     std::vector<std::string> lines = customSplit(configData, '\n');
     std::map<std::string, std::vector<std::string> > keyValues;
     int start = 0;
     int end = 0;
 
-    if(checkCurly(configData) )
-    {
-        std::cerr << "Webserv Error: Quotes are not closed\n";
-        return 0;
-    }
+
     std::string currentSection = "";
     for (std::vector<std::string>::const_iterator it = lines.begin(); it != lines.end(); ++it) {
         std::string trimmedLine = *it;
@@ -51,45 +45,17 @@ int main(int argc, char *argv[]) {
         trimmedLine.erase(trimmedLine.find_last_not_of(" \t\n\r\f\v") + 1);
 
         if (trimmedLine.empty()) {
-            continue;  // Skip empty lines
+            continue; 
         }
-        // Create the section key with count if it's not the first occurrence
 
-        // Check for start of a new section
         if (trimmedLine[trimmedLine.size() - 1] == '{') {
-            trimWordFromEnd(start, end, trimmedLine);
-            currentSection = trimmedLine.substr(start, end + 1);
-            std::replace(currentSection.begin(), currentSection.end(), ' ', '_');
-            base.pushInBase(currentSection);
-
-            // Update section count
-            if (sectionCounts.find(currentSection) == sectionCounts.end()) {
-                sectionCounts[currentSection] = 0;
-            } else {
-                sectionCounts[currentSection]++;
-            }
-
-            // Create the section key with count if it's not the first occurrence
-            if (sectionCounts[currentSection] >= 0) {
-                std::stringstream ss;
-                ss << "[" << sectionCounts[currentSection] << "]";
-                currentSection += ss.str();
-            }
+            currentSection = base.handleKeySection(start, end, trimmedLine);
         }
-        // Check for end of a section
-        else if (trimmedLine == "}") {
+        else if (trimmedLine[trimmedLine.size() - 1] == '}') {
             base.eraseLastSection();
         }
-        // Regular key-value pair
         else {
             std::vector<std::string> tokens = customSplit(trimmedLine, ' ');
-            // std::vector<std::string>::iterator tokn_it = tokens.begin();
-            // while(tokn_it != tokens.end())
-            // {
-            //     std::cout << "HERE [" <<  *tokn_it << ']' << std::endl;
-            //     tokn_it++;
-            // }
-            // exit(0);
             if (tokens.size() >= 2) {
                 std::string key = tokens[0];
                 std::string value = tokens[1];

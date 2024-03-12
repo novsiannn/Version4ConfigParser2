@@ -6,7 +6,7 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:19:53 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/12 21:16:46 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/12 22:40:02 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,28 @@ std::string DataBase::readFile(char **argv)
     if (!lastLine.empty()) {
         configData += lastLine;
     }
+    if(checkCurly(configData))
+        ft_errors("curly ", 3);
     return configData;
+}
+
+std::string		DataBase::handleKeySection(int &start, int &end, std::string &line)
+{
+    std::string currentSection = "";
+
+    trimWordFromEnd(start, end, line);
+    currentSection = line.substr(start, end + 1);
+    std::replace(currentSection.begin(), currentSection.end(), ' ', '_');
+    this->pushInBase(currentSection);
+    if (sectionCounts.find(currentSection) == sectionCounts.end()) {
+        sectionCounts[currentSection] = 0;
+    } else {
+        sectionCounts[currentSection]++;
+    }
+    if (sectionCounts[currentSection] >= 0) {
+        std::stringstream ss;
+        ss << "[" << sectionCounts[currentSection] << "]";
+        currentSection += ss.str();
+    }
+    return currentSection;
 }

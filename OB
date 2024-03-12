@@ -105,7 +105,6 @@ Value(s):
 Key: http[0].log_format
 Value(s): 
   main
-  main
   '$remote_addr
   -
   $remote_user

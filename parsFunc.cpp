@@ -6,7 +6,7 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:06:39 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/12 21:29:57 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/12 22:15:47 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void ft_errors(std::string arg, int i)
         std::cerr << "Usage: " << arg << " <config_file>" << std::endl;
     if(i == 2)
         std::cerr << "Error opening file: " << arg << std::endl;
+    if(i == 3)
+        std::cerr << "Quotes are not closed." << std::endl;
     exit(0);
 }
 
