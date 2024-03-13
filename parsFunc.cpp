@@ -6,7 +6,7 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:06:39 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/12 22:15:47 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:06:40 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,29 @@ std::vector<std::string> split(const std::string &s, char delimiter) {
         tokens.push_back(token);
     }
     return tokens;
+}
+
+void    handleLogFormat(std::string line, std::string &value, std::vector<std::string> tokens, std::vector<std::string>::const_iterator &it)
+{
+    bool firstLine = true;
+    value = "";
+    while (true)
+    {
+        line = *it;
+        tokens = split(line, ' ');
+        std::vector<std::string>::iterator token_it = tokens.begin();
+        while (token_it != tokens.end())
+        {
+            if (firstLine)
+            {
+                value += *(++token_it) + " ";
+                firstLine = false;
+            }
+            else
+                value += *token_it++ + " ";
+        }
+        it++;
+        if (line[line.size() - 1] == ';' || line[line.size() - 1] == '}')
+            break;
+    }
 }

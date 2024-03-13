@@ -6,7 +6,7 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:10:42 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/12 22:40:46 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:07:48 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int main(int argc, char *argv[]) {
     std::string currentSection = "";
     for (std::vector<std::string>::const_iterator it = lines.begin(); it != lines.end(); ++it) {
         std::string trimmedLine = *it;
+        size_t endSection = trimmedLine.find('}');
         trimmedLine.erase(0, trimmedLine.find_first_not_of(" \t\n\r\f\v"));
         trimmedLine.erase(trimmedLine.find_last_not_of(" \t\n\r\f\v") + 1);
 
@@ -51,7 +52,7 @@ int main(int argc, char *argv[]) {
         if (trimmedLine[trimmedLine.size() - 1] == '{') {
             currentSection = base.handleKeySection(start, end, trimmedLine);
         }
-        else if (trimmedLine[trimmedLine.size() - 1] == '}') {
+        else if (endSection != std::string::npos) {
             base.eraseLastSection();
         }
         else {
@@ -59,32 +60,10 @@ int main(int argc, char *argv[]) {
             if (tokens.size() >= 2) {
                 std::string key = tokens[0];
                 std::string value = tokens[1];
-
-                // std::cout << "HERE " << key << '-' <<  value << std::endl;
                 std::string KeyWithoutLastSection;
-                // Combine all remaining tokens as the value
+
                 if (trimmedLine[trimmedLine.size() - 1] == '\''){
-                    bool firstLine = true;
-                    value = "";
-                    while (true)
-                    {
-                        trimmedLine = *it;
-                        tokens = split(trimmedLine, ' ');
-                        std::vector<std::string>::iterator token_it = tokens.begin();
-                        while (token_it != tokens.end())
-                        {
-                            if (firstLine)
-                            {
-                                value += *(++token_it) + " ";
-                                firstLine = false;
-                            }
-                            else
-                                value += *token_it++ + " ";
-                        }
-                        it++;
-                        if (trimmedLine[trimmedLine.size() - 1] == ';' || trimmedLine[trimmedLine.size() - 1] == '}')
-                            break ;
-                    }
+                    handleLogFormat(trimmedLine, value, tokens, it);
                 }
                 else{
                     for (size_t i = 2; i < tokens.size(); ++i) {
