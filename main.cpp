@@ -6,12 +6,12 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:10:42 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/13 20:36:15 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:43:02 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "DataBase.hpp"
+#include "inc/AllHeaders.hpp"
 
 int main(int argc, char *argv[]){
 
