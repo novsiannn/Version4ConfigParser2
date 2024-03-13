@@ -6,11 +6,11 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:19:53 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/13 20:43:10 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:52:33 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/DataBase.hpp"
+#include "../inc/DataBase.hpp"
 
 DataBase::DataBase(){}
 
