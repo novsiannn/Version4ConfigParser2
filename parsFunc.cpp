@@ -6,7 +6,7 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 13:06:39 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/13 20:06:40 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:21:01 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,6 @@ void trimWordFromEnd(int &start, int &end, std::string line) {
     end = line.size() - 1;
     while(isspace(line[end]) || line[end] == '{')
         end--;
-}
-
-void printKeyValue(const std::map<std::string, std::vector<std::string> > &keyValues) {
-    typedef std::map<std::string, std::vector<std::string> >::const_iterator MapIterator;
-    for (MapIterator it1 = keyValues.begin(); it1 != keyValues.end(); ++it1) {
-        std::cout << "Key: " << it1->first
-        << "\nValue(s): " << std::endl;
-        const std::vector<std::string>& values = it1->second;
-        for (std::vector<std::string>::const_iterator it2 = values.begin(); it2 != values.end(); ++it2) {
-            std::cout << "  " << *it2 << std::endl;
-        }
-        std::cout << "\n";
-    }
 }
 
 // We are not using this function

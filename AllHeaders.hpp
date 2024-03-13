@@ -6,7 +6,7 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:47:30 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/13 20:07:01 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:20:52 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 
 // void
 void trimWordFromEnd(int &start, int &end, std::string line);
-void printKeyValue(const std::map<std::string, std::vector<std::string> > &keyValues);
 void handleLogFormat(std::string line, std::string &value, std::vector<std::string> tokens, std::vector<std::string>::const_iterator &it);
 void ft_errors(std::string arg, int i);
 
