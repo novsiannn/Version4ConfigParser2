@@ -6,7 +6,7 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:16:08 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/13 20:29:10 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:54:13 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ class DataBase{
 		~DataBase();
 		void		pushInBase(std::string env_name);
 		void		eraseLastSection();
-		void		printVarPath();
 		void		fillMap(std::string value, std::string key, std::string currentSection ,std::string KeyWithoutLastSection);
 		void		printKeyValue();
 		void		execParser(char *argv[]);

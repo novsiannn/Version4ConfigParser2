@@ -6,7 +6,7 @@
 /*   By: nikitos <nikitos@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:19:53 by nikitos           #+#    #+#             */
-/*   Updated: 2024/03/13 20:52:33 by nikitos          ###   ########.fr       */
+/*   Updated: 2024/03/13 20:53:41 by nikitos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,6 @@ void	DataBase::eraseLastSection()
 {
     if(!this->_variablePath.empty()) // Probably we don't need that condition
         this->_variablePath.pop_back();
-}
-
-void	DataBase::printVarPath()
-{
-	std::vector<std::string>::iterator it;
-    for(it = _variablePath.begin(); it != _variablePath.end(); it++){
-        
-        std::cout << *it << " --> ";
-    }
-	std::cout << "\n";
 }
 
 std::string	DataBase::getFullPathKey()
